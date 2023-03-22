@@ -9,16 +9,60 @@
 <body>
 <div id="root">
     <div id="max-sum-holder">
-      <input type="number" value="50">
-    </div>
-    <div  id="range-a-holder">
-        <input type="range" value="0" max="0">
-        <div id="range-a-value">  </div>
-    </div>
-    <div id="range-b-holder">
-        <input type="range" value="50" max="50">
-        <div id="range-b-value"> </div>
-        <div id="sum"> </div>
-    </div>
+  <input type="number" id="max-sum" value="50">
 </div>
+<div id="range-a-holder">
+  <input type="range" id="range-a" value="0" max="0">
+  <div id="range-a-value"></div>
+</div>
+<div id="range-b-holder">
+  <input type="range" id="range-b" value="50" max="50">
+  <div id="range-b-value"></div>
+  <div id="sum"></div>
+</div>
+ </div
+<script>
+  const rangeA = document.getElementById('range-a');
+  const rangeB = document.getElementById('range-b');
+  const maxSum = document.getElementById('max-sum');
+  const rangeAValue = document.getElementById('range-a-value');
+  const rangeBValue = document.getElementById('range-b-value');
+  const sum = document.getElementById('sum');
+
+  function updateRanges() {
+    const max = Number(maxSum.value);
+    const rangeAVal = Number(rangeA.value);
+    const rangeBVal = Number(rangeB.value);
+    const total = rangeAVal + rangeBVal;
+
+    if (total > max) {
+      // Adjust range values to stay within max sum
+      const newRangeAVal = Math.min(rangeAVal, max - rangeBVal);
+      const newRangeBVal = Math.min(rangeBVal, max - rangeAVal);
+
+      // Update range values
+      rangeA.value = newRangeAVal;
+      rangeB.value = newRangeBVal;
+
+      // Update range value displays
+      rangeAValue.textContent = newRangeAVal;
+      rangeBValue.textContent = newRangeBVal;
+    } else {
+      // Update range value displays
+      rangeAValue.textContent = rangeAVal;
+      rangeBValue.textContent = rangeBVal;
+    }
+
+    // Update total display
+    sum.textContent = total;
+  }
+
+  rangeA.addEventListener('input', updateRanges);
+  rangeB.addEventListener('input', updateRanges);
+  maxSum.addEventListener('input', updateRanges);
+
+  updateRanges();
+</script>
+
+   
 </html>
